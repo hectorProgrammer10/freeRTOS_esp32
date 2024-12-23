@@ -64,8 +64,21 @@ SemaphoreHandle_t semaforo = xSemaphoreCreateBinary();
 
 4. **Timers**: Temporizadores de software que ejecutan tareas periódicamente.
 
-```bash
-
+```c++
+// Crear el temporizador
+miTemporizador = xTimerCreate(
+  "MiTemporizador", // Nombre del temporizador
+  pdMS_TO_TICKS(1000), // Período del temporizador en ticks (1000 ms)
+  pdTRUE, // Temporizador de auto-reinicio
+  (void *)0, // ID del temporizador (opcional)
+  miCallback // Función de callback
+);
+// Iniciar el temporizador
+if (miTemporizador != NULL) {
+  if (xTimerStart(miTemporizador, 0) != pdPASS) {
+    Serial.println("Error al iniciar el temporizador");
+    }
+  }
 ```
 
 ## Consideraciones
