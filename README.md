@@ -38,7 +38,7 @@ Cuando se utiliza FreeRTOS en Arduino, se reemplaza el modelo simple de programa
 
 ### 2. Incluir la biblioteca:
 
-```bash
+```c++
 #include <Arduino_FreeRTOS.h>
 ```
 
@@ -52,13 +52,13 @@ Cuando se utiliza FreeRTOS en Arduino, se reemplaza el modelo simple de programa
 
 2. **Colas**: Utilizadas para la comunicación entre tareas.
 
-```bash
+```c++
 QueueHandle_t queue = xQueueCreate(10, sizeof(int));
 ```
 
 3. **Semáforos y Mutexes**: Herramientas para la sincronización de tareas y el acceso a recursos compartidos.
 
-```bash
+```c++
 SemaphoreHandle_t semaforo = xSemaphoreCreateBinary();
 ```
 
@@ -73,6 +73,7 @@ miTemporizador = xTimerCreate(
   (void *)0, // ID del temporizador (opcional)
   miCallback // Función de callback
 );
+
 // Iniciar el temporizador
 if (miTemporizador != NULL) {
   if (xTimerStart(miTemporizador, 0) != pdPASS) {
