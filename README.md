@@ -8,7 +8,9 @@ Ejemplo de uso de la libreria FreeRTOS para arduino en una placa ESP32.
 
 -[Características de freeRTOS](#características-de-freertos)
 
--[Uso en Arduino](#uso-en-arduino)
+-[Configuración inicial](#configuración-inicial)
+
+-[Componentes clave](#componentes-clave)
 
 ## Características de freeRTOS
 
@@ -36,4 +38,22 @@ Cuando se utiliza FreeRTOS en Arduino, se reemplaza el modelo simple de programa
 #include <Arduino_FreeRTOS.h>
 ```
 
-**Nota:** ESP32 ya tiene soporte integrado para FreeRTOS.
+**Nota:** ESP32 ya tiene soporte integrado para FreeRTOS no es necesario incluirlo en el código del desarrollo.
+
+## Componentes clave
+
+1. **Tareas**: Las tareas son bloques de código que se ejecutan de forma independiente.
+
+- Función principal: _xTaskCreate_ para crear tareas.
+
+2. **Colas**: Utilizadas para la comunicación entre tareas.
+
+```bash
+QueueHandle_t queue = xQueueCreate(10, sizeof(int));
+```
+
+3. **Semáforos y Mutexes**: Herramientas para la sincronización de tareas y el acceso a recursos compartidos.
+
+```bash
+SemaphoreHandle_t semaforo = xSemaphoreCreateBinary();
+```
