@@ -59,7 +59,23 @@ QueueHandle_t queue = xQueueCreate(10, sizeof(int));
 3. **Semáforos y Mutexes**: Herramientas para la sincronización de tareas y el acceso a recursos compartidos.
 
 ```c++
-SemaphoreHandle_t semaforo = xSemaphoreCreateBinary();
+// Declaración del semáforo
+SemaphoreHandle_t miSemaforo;
+
+// Crear el semáforo binario
+miSemaforo = xSemaphoreCreateBinary();
+// Inicializar el semáforo
+xSemaphoreGive(miSemaforo);
+
+// Esperar el semáforo
+if (xSemaphoreTake(miSemaforo, portMAX_DELAY) == pdTRUE) {
+  Serial.println("Tarea 2: Semáforo tomado");
+  // Realizar alguna acción
+  delay(1000);
+  // Liberar el semáforo
+  xSemaphoreGive(miSemaforo);
+  Serial.println("Tarea 2: Semáforo liberado");
+}
 ```
 
 4. **Timers**: Temporizadores de software que ejecutan tareas periódicamente.
