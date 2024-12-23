@@ -12,6 +12,10 @@ Ejemplo de uso de la libreria FreeRTOS para arduino en una placa ESP32.
 
 -[Componentes clave](#componentes-clave)
 
+-[Consideraciones](#consideraciones)
+
+-[Ejemplo práctico](#ejemplo-práctico)
+
 ## Características de freeRTOS
 
 Cuando se utiliza FreeRTOS en Arduino, se reemplaza el modelo simple de programación secuencial con un enfoque basado en tareas concurrentes. Esto resulta útil en proyectos donde se requieren múltiples procesos simultáneos, como leer sensores, controlar motores y gestionar comunicaciones.
@@ -57,3 +61,23 @@ QueueHandle_t queue = xQueueCreate(10, sizeof(int));
 ```bash
 SemaphoreHandle_t semaforo = xSemaphoreCreateBinary();
 ```
+
+4. **Timers**: Temporizadores de software que ejecutan tareas periódicamente.
+
+```bash
+
+```
+
+## Consideraciones
+
+- **Hardware soportado:** No todas las placas Arduino son compatibles con FreeRTOS, ya que requiere una cierta cantidad de memoria y capacidad de procesamiento. Es más común en placas como ESP32, STM32 o SAMD21.
+
+- **Impacto en memoria:** FreeRTOS consume más recursos que un programa secuencial típico, por lo que es importante optimizar las tareas y el uso de memoria.
+
+- **Prioridades:** FreeRTOS permite asignar prioridades a las tareas para asegurar que las más críticas tengan más tiempo de CPU.
+
+## Ejemplo práctico
+
+Si estás desarrollando un robot que necesita moverse, leer sensores y comunicarse por Bluetooth al mismo tiempo, FreeRTOS puede ayudarte a dividir estas funcionalidades en tareas separadas, manteniendo la eficiencia y evitando bloqueos.
+
+-[Volver al inicio](#tabla-de-contenidos)
