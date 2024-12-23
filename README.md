@@ -112,6 +112,70 @@ Si estás desarrollando un robot que necesita moverse, leer sensores y comunicar
 
 ![robot](src/images/robot.png)
 
+## Ejemplo con ESP32
+
+Código completo en : **ejemplos/ejemplo_con_sensores.ino**
+
+### Se crean las tareas:
+
+#### Tarea para conectar al wifi:
+
+```c++
+ // Crear tareas para los hilos
+  xTaskCreatePinnedToCore(
+      connectToWiFi, // Función de la tarea
+      "WiFiTask",    // Nombre de la tarea
+      10000,         // Tamaño de la pila
+      NULL,          // Parámetro de entrada
+      1,             // Prioridad de la |tarea
+      NULL,          // Handle de la tarea
+      0);            // Núcleo donde se ejecutará la tarea
+```
+
+#### Tarea para leer el sensor de distancia:
+
+```c++
+  xTaskCreatePinnedToCore(
+      measureDistance, // Función de la tarea
+      "MeasureTask",   // Nombre de la tarea
+      10000,           // Tamaño de la pila
+      NULL,            // Parámetro de entrada
+      1,               // Prioridad de la tarea
+      NULL,            // Handle de la tarea
+      1);              // Núcleo donde se ejecutará la tarea
+```
+
+### Ejemplo de las funciones:
+
+```c++
+void connectToWiFi(void *parameter)
+{
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+    ....resto del código
+
+
+void measureDistance(void *parameter)
+{
+  while (true)
+  {
+    // Generar un pulso de 10 microsegundos en el pin Trig para iniciar la medición
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+
+    // Leer el tiempo que tarda el pulso en volver (en microsegundos)
+    unsigned long tiempoVuelta = pulseIn(echoPin, HIGH, 40000); // 40 ms de tiempo máximo de espera (400 cm a 343 m/s)
+    ....resto del código
+```
+
+**Nota:** Las tareas se ejecutarán de manera independiente. Sí al conectar el wifi falla, el programa sigue leyendo el sensor de distancia. Lo cual evita bloqueos.
+
 ## ¿Cuántas tareas puede ejecutar?
 
 ### Factores principales que influyen:
