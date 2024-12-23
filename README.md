@@ -112,4 +112,22 @@ Si estás desarrollando un robot que necesita moverse, leer sensores y comunicar
 
 ![robot](src/images/robot.png)
 
+## ¿Cuántas tareas puede ejecutar?
+
+### Factores principales que influyen:
+
+- Cada tarea en FreeRTOS consume memoria RAM para su stack (almacenamiento de variables locales, contexto de ejecución, etc.).
+- Cuando creas una tarea con FreeRTOS, defines cuánto espacio del stack necesita.
+- FreeRTOS tiene un límite configurado por la macro configMAX_PRIORITIES (en FreeRTOSConfig.h) para la cantidad de tareas que pueden tener diferentes prioridades.
+- Si tienes demasiadas tareas que consumen mucho tiempo de procesamiento, podrías experimentar problemas de rendimiento o inestabilidad.
+- Si estás usando periféricos como UART, I2C, SPI o Wi-Fi, estos también consumen RAM y CPU, reduciendo los recursos disponibles para tareas adicionales.
+
+### Ejemplo de referencia (Arduino Uno):
+
+En un Arduino Uno, debido a su RAM limitada (2 KB), podrías ejecutar entre 2 y 4 tareas simples si cada una tiene un stack pequeño (por ejemplo, 100 bytes). Sin embargo, esto también depende del uso de memoria por el sistema base y las bibliotecas.
+
+### Ejemplo de referencia (ESP32):
+
+En un ESP32, que tiene una memoria mucho mayor, podrías ejecutar decenas de tareas, dependiendo de los requisitos de memoria de cada tarea y de cómo optimices el uso de recursos.
+
 -[Volver al inicio](#libreria-freertos)
