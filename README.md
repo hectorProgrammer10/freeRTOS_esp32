@@ -80,4 +80,6 @@ SemaphoreHandle_t semaforo = xSemaphoreCreateBinary();
 
 Si estás desarrollando un robot que necesita moverse, leer sensores y comunicarse por Bluetooth al mismo tiempo, FreeRTOS puede ayudarte a dividir estas funcionalidades en tareas separadas, manteniendo la eficiencia y evitando bloqueos.
 
+![robot](src/images/robot.png)
+
 -[Volver al inicio](#libreria-freertos)
